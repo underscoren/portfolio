@@ -1,0 +1,30 @@
+@charset "utf-8"
+
+@import "./colors"
+
+/* fonts */
+
+// montserrat bold and roboto regular
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap")
+
+@font-face
+    font-family: mononoki
+    src: url("/mononoki-Regular.woff2") format('woff2'), url("/mononoki-Regular.woff") format('woff')
+    font-weight: 400
+    font-style: normal
+    font-display: swap
+
+$family-header: "Montserrat", Helvetica, sans-serif
+
+/* bulma */
+
+$family-primary: "Roboto", Arial, sans-serif
+$family-code: "mononoki", Consolas, monospace
+
+$scheme-main: $cream
+
+@import "../node_modules/bulma/sass/utilities/_all"
+@import "../node_modules/bulma/sass/base/_all"
+
+html
+    scroll-behavior: smooth
