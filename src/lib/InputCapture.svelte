@@ -1,17 +1,20 @@
+<script context="module" lang="ts">
+    export type PressedCharSerialised = [string, number | void];
+    export type InputData = PressedCharSerialised[];
+</script>
+
 <script lang="ts">
     import { onMount } from "svelte";
 
     let inputElement: HTMLInputElement;
 
-    type InputData = {
+    type PressedChar = {
         char: string,
         time?: number // ms
     }
 
-    type InputDataSerialised = [string, number];
-
-    let inputs: InputData[] = [];
-    let lastInput: number;
+    let inputs: PressedChar[] = [];
+    let lastInput: number | undefined;
 
     onMount(() => {
         inputElement.addEventListener("input", (ev) => {
@@ -30,7 +33,7 @@
                 return;
             }
 
-            prevInput.time = ev.timeStamp - lastInput;
+            prevInput.time = ev.timeStamp - (lastInput as number);
             lastInput = ev.timeStamp;
 
             inputs.push({
@@ -43,7 +46,8 @@
 
 <div class="container">
     <input bind:this={inputElement} type="text">
-    <button on:click={() => console.log(inputs)}>Check</button>
+    <button on:click={() => console.log(inputs, inputs.map(({char, time}) => [char,time]))}>Check</button>
+    <button on:click={() => {inputs = []; lastInput = undefined;}}>Reset</button>
 </div>
 
 <style lang="sass">
