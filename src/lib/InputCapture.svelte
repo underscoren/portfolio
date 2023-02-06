@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    export type PressedCharSerialised = [string, number | void];
+    export type PressedCharSerialised = [string, number] | [string];
     export type InputData = PressedCharSerialised[];
 </script>
 
@@ -47,7 +47,7 @@
 <div class="container">
     <input bind:this={inputElement} type="text">
     <button on:click={() => console.log(inputs, inputs.map(({char, time}) => [char,time]))}>Check</button>
-    <button on:click={() => {inputs = []; lastInput = undefined;}}>Reset</button>
+    <button on:click={() => {inputs = []; lastInput = undefined; inputElement.value = ""}}>Reset</button>
 </div>
 
 <style lang="sass">

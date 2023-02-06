@@ -2,7 +2,7 @@
     import type { InputData } from "../lib/InputCapture.svelte"
 
 	export let wordList: InputData[];
-    export let startDelay: number = 1000;
+    export let startDelay: number = 1750;
     export let wordDelay: number = 5000;
     export let newWordDelay: number = 750;
     export let deleteDelay: number = 33;
@@ -60,7 +60,6 @@
     #typing
         &::after
             content: "|"
-            margin-left: 0.5px
             font-weight: bold
 
         &.blink
