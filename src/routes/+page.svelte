@@ -2,6 +2,10 @@
     import Typing from "../lib/Typing.svelte";
     import type { InputData } from "../lib/InputCapture.svelte"
     import InputCapture from "../lib/InputCapture.svelte";
+	import Heading from "$lib/Heading.svelte";
+	import Project from "$lib/Project.svelte";
+	import Experience from "$lib/Experience.svelte";
+	import Pill from "$lib/Pill.svelte";
 
     const wordList: InputData[] = [
         [["W",173],["e",78],["b",86],[" ",218],["D",120],["e",201],["v"]], // Web dev
@@ -22,19 +26,254 @@
     <meta name="description" content="Marius Steffens' Portfolio" />
 </svelte:head>
 
-<section class="column" id="about">
+<section id="main">
     <div class="box">
         <div class="typing">
             <span>I like <Typing {wordList} /></span>
         </div>
-        <InputCapture />
+        <!-- <InputCapture /> -->
+        <!-- big video thing -->
+        <div class="bg-video-container"></div>
+        <Heading id="game-dev">Game Dev</Heading>
+        <div class="columns is-fullhd main-container">
+            <div class="column">
+                <Project>
+                    <span slot="title">Symphony of Life</span>
+                    <span slot="pills">
+                        <Pill color="blue">VR</Pill>
+                        <Pill color="blue">Unity</Pill>
+                        <Pill color="red">C#</Pill>
+                        <Pill color="red">OpenXR</Pill>
+                        <Pill color="green">Client Project</Pill>
+                    </span>
+                    <span slot="description">Short, immersive VR experience to be displayed at events and festivals. Worked directly with client to develop ideas and design prototype. Rapidly iterated on design and created MVP within a three month period.</span>
+                    <span slot="highlights">
+                        <p>Roles:</p>
+                        <ul>
+                            <li>Team Lead</li>
+                            <li>Lead Programmer</li>
+                        </ul>
+                        <p>Responsibilities:</p>
+                        <ul>
+                            <li>Planning and Task Delegation</li>
+                            <li>Script Architecture</li>
+                            <li>Programming and Optimisation Guidance</li>
+                        </ul>
+                    </span>
+                </Project>
+            </div>
+            <div class="column is-2 is-fullhd"></div> <!-- spacer -->
+            <div class="column">
+                <Project>
+                    <span slot="title">Cell</span>
+                    <span slot="pills">
+                        <Pill color="blue">Custom Engine</Pill>
+                        <Pill color="red">C++</Pill>
+                        <Pill color="red">OpenGL</Pill>
+                        <Pill color="green">University Project</Pill>
+                    </span>
+                    <span slot="description">2D falling sand puzzle platformer made using my custom game engine with minimal libraries. Developed as a project to better my understanding of rendering, game engines, and C++. Engine development took up majority of the time, game was unfortunately not finished.</span>
+                    <span slot="highlights">
+                        <p style="margin-bottom: 0.5rem">Highlights:</p>
+                        <ul>
+                            <li>Custom engine for “falling sand” simulation</li>
+                            <li>Written in C++ with minimal libraries (no SDL or SFML)</li>
+                            <li>Cross platform (Windows/Linux/Mac)</li>
+                            <li>Unique gameplay concept, combining puzzle platforming with sand physics</li>
+                            <li>Researched and developed solo in five month period</li>
+                        </ul>
+                    </span>
+                </Project>
+            </div>
+        </div>
+        <Heading id="web-dev">Web Dev</Heading>
+        <div class="columns is-fullhd main-container">
+            <div class="column">
+                <Project>
+                    <span slot="title">Barodocs</span>
+                    <span slot="pills">
+                        <Pill color="blue">React</Pill>
+                        <Pill color="red">Bootstrap</Pill>
+                        <Pill color="red">jQuery</Pill>
+                        <Pill color="green">Personal Project</Pill>
+                    </span>
+                    <span slot="description">Game item wiki generated on-device using data scraped from retail game files. Reverse engineered complex XML parsing with the help of source code available for modders. Originally written only with jQuery/HTML, later re-written with React.</span>
+                    <span slot="highlights">
+                        <p style="margin-bottom: 0.5rem">Highlights:</p>
+                        <ul>
+                            <li>React SPA</li>
+                            <li>Mobile friendly (Responsive design)</li>
+                            <li>Try it out yourself <a target="_blank" rel="noreferrer" href="https://barodocs.ddns.net">here</a></li>
+                            <li>Source available <a target="_blank" rel="noreferrer" href="https://github.com/underscoren/barodocs">here</a></li>
+                        </ul>
+                    </span>
+                </Project>
+            </div>
+            <div class="column is-2 is-fullhd"></div> <!-- spacer -->
+            <div class="column">
+                <Project>
+                    <span slot="title">VS Furnace Calc</span>
+                    <span slot="pills">
+                        <Pill color="blue">Svelte</Pill>
+                        <Pill color="red">TypeScript</Pill>
+                        <Pill color="red">Bulma</Pill>
+                        <Pill color="green">Personal Project</Pill>
+                    </span>
+                    <span slot="description">Dynamic game furnace temperature simulator. Reverse-engineered simulation logic spread across multiple abstract components in a complex codebase.</span>
+                    <span slot="highlights">
+                        <p style="margin-bottom: 0.5rem">Highlights:</p>
+                        <ul>
+                            <li>Svelte / TypeScript (Modern frontend toolchain)</li>
+                            <li>Custom game-inspired UX</li>
+                            <li>Website viewable <a href="/">here</a></li>
+                            <li>Source available <a href="/">here</a></li>
+                        </ul>
+                    </span>
+                </Project>
+            </div>
+        </div>
+        <h1>Minor Projects</h1>
+        <div class="columns is-fullhd main-container">
+            <div class="column">
+                <Project type="mini">
+                    <span slot="title">Blender-to-NBT</span>
+                    <span slot="description">A blender plugin for creating exact 1-meter block cubes and exporting a NBT structure file for use in Minecraft and related programs.</span>
+                </Project>
+            </div>
+            <div class="column">
+                <Project type="mini">
+                    <span slot="title">Piano Learning Tool</span>
+                    <span slot="description">Originally a little tool to help me learn all the keyboard note names interactively using the Web MIDI API, later developed sheet music, accidental, and octave-specific modes. Also includes a very basic WebAudio API-powered piano synth.</span>
+                </Project>
+            </div>
+            <div class="column">
+                <Project type="mini">
+                    <span slot="title">Cyberpunk Red Tools</span>
+                    <span slot="description">A set of tools for creating characters and story beats, written only using jQuery and Bootstrap. One of my earliest projects, in the process of being re-written with modern frontend toolchains (SvelteKit/TS).</span>
+                </Project>
+            </div>
+        </div>
+        <Heading id="experience">Experience</Heading>
+        <div class="experience-container">
+            <Experience type="school">
+                <span slot="title">University of Essex</span>
+                <span slot="date">(2019 - 2022)</span>
+                <span slot="highlights">
+                    <p>Computer Science Bsc (2.1, Hons)</p>
+                    <ul>
+                        <li>Computer Game Programming</li>
+                        <li>C++ Programming</li>
+                        <li>Web Development</li>
+                    </ul>
+                </span>
+            </Experience>
+            <Experience type="school">
+                <span slot="title">Skills City</span>
+                <span slot="date">(10/22 - 01/23)</span>
+                <span slot="highlights">
+                    <p>Game Dev Bootcamp</p>
+                    <ul>
+                        <li>Unity Engine</li>
+                        <li>C# Programming</li>
+                        <li>VR Game Development</li>
+                    </ul>
+                </span>
+            </Experience>
+            <Experience type="work">
+                <span slot="title">Creative Solutions - Ithra</span>
+                <span slot="date">(12/22 - 02/23)</span>
+                <span slot="highlights">
+                    <p>Client Project - Symphony of Life</p>
+                    <ul>
+                        <li>Short VR Experience (Prototype)</li>
+                        <li>Team lead (4 people)</li>
+                        <li>Lead Programmer (Unity / C#)</li>
+                    </ul>
+                </span>
+            </Experience>
+            <Experience type="work" ghost>
+                <span slot="title">Your Company (hopefully!)</span>
+                <span slot="date">(2023 - ???)</span>
+                <span slot="highlights"></span>
+            </Experience>
+        </div>
+        <div class="line"></div>
     </div>
 </section>
 
 <style lang="sass">
-    #about
-        margin: 2rem 4rem
+    @import "../lib/css/colors"
+    @import "../../node_modules/bulma/sass/grid/columns"
+    @import "../../node_modules/bulma/sass/utilities/mixins"
+    
+    $left-offset: 12%
+    $left-offset-full: calc($left-offset + 4%)
+
+    $left-offset-mobile: calc($left-offset * 2/3 )
+    $left-offset-full-mobile: calc($left-offset-full * 2/3)
+    
+    a
+        text-decoration: underline
+
+        /** show icon for external links only */
+        &[target="_blank"]::after
+            text-decoration: underline dotted
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='hsl(229deg, 53%, 53%)' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z'/%3E%3Cpath fill-rule='evenodd' d='M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z'/%3E%3C/svg%3E")
+            margin-left: 0.25rem
+
+    #main
+        position: relative
+
     .typing
-        margin-top: 1rem
+        margin: 3rem 0 2rem $left-offset-full
         font-size: 5rem
+
+        +until-widescreen
+            font-size: 1.25rem
+    
+    .bg-video-container
+        width: 100vw
+        height: 110vh
+        background-color: $black
+        margin-bottom: 5rem
+    
+    h1
+        margin: 3rem 0 2rem $left-offset-full
+        font-size: 1.75rem
+
+    .main-container
+        margin-left: $left-offset-full
+        margin-right: 10%
+
+
+    .experience-container
+        margin: 12rem $left-offset 10rem
+            
+
+    .line
+        position: absolute
+        top: 0
+        left: $left-offset
+        height: 100%
+        width: 0.5rem
+        background-color: $dk-blue
+        z-index: -1
+        transform: translate(-50%)
+
+    +until-widescreen
+        .main-container
+            margin-left: $left-offset-full-mobile
+            margin-right: 1rem
+        
+        .experience-container
+            margin-top: 8rem
+            margin-left: $left-offset-mobile
+        
+        .line
+            left: $left-offset-mobile
+
+        /* Force every column to render as full-width block */
+        .columns
+            display: block !important
+
 </style>
