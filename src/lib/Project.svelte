@@ -11,18 +11,18 @@
     <div class="text-container">
         <div class="title-container">
             <span class="project-title">
-                <slot name="title">Title</slot>
+                <slot name="title"></slot>
             </span>
             <span class="pills-container">
                 <slot name="pills"></slot>
             </span>
         </div>
         <div class="project-description content">
-            <slot name="description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt a totam facere earum amet expedita omnis quas excepturi accusamus aspernatur explicabo ducimus, qui in at, ipsa quisquam officia assumenda impedit?</slot>
+            <slot name="description"></slot>
         </div>
         {#if type != "mini"}
         <div class="project-highlights content">
-            <slot name="highlights">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore, perferendis impedit excepturi explicabo dicta exercitationem quia pariatur magni tenetur fugiat dolorem delectus nobis deserunt fuga, sed commodi tempora esse ea!</slot>
+            <slot name="highlights"></slot>
         </div>
         {/if}
     </div>
@@ -39,9 +39,15 @@
             width: 100%
             aspect-ratio: 1
             margin-bottom: 2rem
+            background-color: #1a1a1a
+            display: flex
+            align-items: center
 
             &.mini
                 aspect-ratio: 3/2
+
+                :global(img), :global(video)
+                    object-fit: contain
         
         .title-container
             width: 100%

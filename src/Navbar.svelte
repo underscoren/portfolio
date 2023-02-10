@@ -16,7 +16,7 @@
   
       <div class="navbar-end">
         <a class="navbar-item" href="#footer">Contact</a>
-        <a class="navbar-item" href="/CV.pdf">CV</a>
+        <a class="navbar-item" href="/Steffens, Marius CV [Programmer].pdf">CV</a>
       </div>
     </div>
   </nav>

@@ -19,6 +19,14 @@
         [["C",193],["o",116],["o",100],["k",207],["i",34],["n",119],["g"]], // Cooking
         [["R",182],["e",504],["c",106],["o",79],["r",183],["d",82],["i",51],["n",104],["g",82],[" ",175],["m",73],["y",197],["s",63],["e",133],["l",214],["f",269],[" ",361],["t",67],["y",110],["p",225],["i",58],["n",73],["g"]], // Recording myself typing
     ]
+
+    import SOLpreview from "../lib/img/project/SOL/preview.gif"
+    import fallingsandPreview from "../lib/img/project/fallingsand/preview.mp4"
+    import barodocsPreview from "../lib/img/project/barodocs/preview.gif"
+    import vsfurnacePreview from "../lib/img/project/vsfurnace/preview.gif"
+    import blender2nbtPreview from "../lib/img/project/blender2nbt/preview.mp4"
+    import pianoPreview from "../lib/img/project/piano/preview.png"
+    import cpunkPreview from "../lib/img/project/cpunk/preview.mp4"
 </script>
 
 <svelte:head>
@@ -33,11 +41,21 @@
         </div>
         <!-- <InputCapture /> -->
         <!-- big video thing -->
-        <div class="bg-video-container"></div>
+        <div class="bg-video-container">
+            <div class="text-container content">
+                <p>Hi! I'm Marius, and I've been programming since I was 12. I discovered my love for all things computers when I saw a demo of <a target="_blank" rel="noreferrer" href="https://www.google.com/search?q=lego+mindstorms&tbm=isch">Lego Mindstorms</a> during a school trip, and later learned JavaScript while bored during ICT lessons.</p>
+                <p>Since then, I've been working on all sort of things that interest me - typically some sort of web-based tool or application, though I've also dabbled with Linux, ripped game assets for modding (and learned about the engines in the process), and even wrote my own 2D OpenGL game engine completely from scratch!</p>
+                <p>After finishing university, I've joined a Game Dev bootcamp while also working on a project for a big industry client. It was very intensive, but I've learned a lot about project management and game development, and I will even obtain an Unity Associate Programmer qualification. In my spare time, I enjoy playing a wide variety of games - everthing from factory builders, to RPGs, to rhythm games, and VR titles; and I also used to run a boardgames club while in high school, as well as occasionally GM for my friends' TTRPG games.</p>
+                <p>Here you can find some of the projects I've worked on over the years, which I hope you'll find interesting. Feel free to contact me for more info - my email and other links are at the very bottom of the page.</p>
+            </div>
+        </div>
         <Heading id="game-dev">Game Dev</Heading>
         <div class="columns is-fullhd main-container">
             <div class="column">
                 <Project>
+                    <span slot="image">
+                        <img src={SOLpreview} alt="">
+                    </span>
                     <span slot="title">Symphony of Life</span>
                     <span slot="pills">
                         <Pill color="blue">VR</Pill>
@@ -62,9 +80,12 @@
                     </span>
                 </Project>
             </div>
-            <div class="column is-2 is-fullhd"></div> <!-- spacer -->
+            <div class="column is-2"></div> <!-- spacer -->
             <div class="column">
                 <Project>
+                    <span slot="image">
+                        <video autoplay loop muted src={fallingsandPreview} />
+                    </span>
                     <span slot="title">Cell</span>
                     <span slot="pills">
                         <Pill color="blue">Custom Engine</Pill>
@@ -90,6 +111,9 @@
         <div class="columns is-fullhd main-container">
             <div class="column">
                 <Project>
+                    <span slot="image">
+                        <img src={barodocsPreview} alt="">
+                    </span>
                     <span slot="title">Barodocs</span>
                     <span slot="pills">
                         <Pill color="blue">React</Pill>
@@ -109,9 +133,12 @@
                     </span>
                 </Project>
             </div>
-            <div class="column is-2 is-fullhd"></div> <!-- spacer -->
+            <div class="column is-2"></div> <!-- spacer -->
             <div class="column">
                 <Project>
+                    <span slot="image">
+                        <img src={vsfurnacePreview} alt="">
+                    </span>
                     <span slot="title">VS Furnace Calc</span>
                     <span slot="pills">
                         <Pill color="blue">Svelte</Pill>
@@ -125,7 +152,7 @@
                         <ul>
                             <li>Svelte / TypeScript (Modern frontend toolchain)</li>
                             <li>Custom game-inspired UX</li>
-                            <li>Website viewable <a href="/">here</a></li>
+                            <li>Website viewable here (link TBC)</li>
                             <li>Source available <a href="/">here</a></li>
                         </ul>
                     </span>
@@ -136,34 +163,43 @@
         <div class="columns is-fullhd main-container">
             <div class="column">
                 <Project type="mini">
+                    <span slot="image">
+                        <video autoplay loop muted src={blender2nbtPreview} />
+                    </span>
                     <span slot="title">Blender-to-NBT</span>
-                    <span slot="description">A blender plugin for creating exact 1-meter block cubes and exporting a NBT structure file for use in Minecraft and related programs.</span>
+                    <span slot="description">A blender plugin for creating exact 1-meter block cubes and exporting a NBT structure file for use in Minecraft and related programs. [<a target="_blank" rel="noreferrer" href="https://github.com/underscoren/blender-to-nbt">Source</a>]</span>
                 </Project>
             </div>
             <div class="column">
                 <Project type="mini">
+                    <span slot="image">
+                        <img src={pianoPreview} alt="" >
+                    </span>
                     <span slot="title">Piano Learning Tool</span>
-                    <span slot="description">Originally a little tool to help me learn all the keyboard note names interactively using the Web MIDI API, later developed sheet music, accidental, and octave-specific modes. Also includes a very basic WebAudio API-powered piano synth.</span>
+                    <span slot="description">Originally a little tool to help me learn all the keyboard note names interactively using the Web MIDI API, later developed sheet music, accidental, and octave-specific modes. Also includes a very basic WebAudio API-powered piano synth. [<a target="_blank" rel="noreferrer" href="https://github.com/underscoren/piano-learn-tool">Source</a>]</span>
                 </Project>
             </div>
             <div class="column">
                 <Project type="mini">
+                    <span slot="image">
+                        <video autoplay loop muted src={cpunkPreview} />
+                    </span>
                     <span slot="title">Cyberpunk Red Tools</span>
-                    <span slot="description">A set of tools for creating characters and story beats, written only using jQuery and Bootstrap. One of my earliest projects, in the process of being re-written with modern frontend toolchains (SvelteKit/TS).</span>
+                    <span slot="description">A set of tools for creating characters and story beats, written only using jQuery and Bootstrap. One of my earliest projects, in the process of being re-written with modern frontend toolchains (SvelteKit/TS). [<a target="_blank" rel="noreferrer" href="https://github.com/underscoren/cp-red-tools-old">Source</a>]</span>
                 </Project>
             </div>
         </div>
         <Heading id="experience">Experience</Heading>
         <div class="experience-container">
-            <Experience type="school">
-                <span slot="title">University of Essex</span>
-                <span slot="date">(2019 - 2022)</span>
+            <Experience type="work">
+                <span slot="title">Creative Solutions - Ithra</span>
+                <span slot="date">(12/22 - 02/23)</span>
                 <span slot="highlights">
-                    <p>Computer Science Bsc (2.1, Hons)</p>
+                    <p>Client Project - Symphony of Life</p>
                     <ul>
-                        <li>Computer Game Programming</li>
-                        <li>C++ Programming</li>
-                        <li>Web Development</li>
+                        <li>Short VR Experience (Prototype)</li>
+                        <li>Team lead (4 people)</li>
+                        <li>Lead Programmer (Unity / C#)</li>
                     </ul>
                 </span>
             </Experience>
@@ -179,22 +215,17 @@
                     </ul>
                 </span>
             </Experience>
-            <Experience type="work">
-                <span slot="title">Creative Solutions - Ithra</span>
-                <span slot="date">(12/22 - 02/23)</span>
+            <Experience type="school">
+                <span slot="title">University of Essex</span>
+                <span slot="date">(2019 - 2022)</span>
                 <span slot="highlights">
-                    <p>Client Project - Symphony of Life</p>
+                    <p>Computer Science Bsc (2.1, Hons)</p>
                     <ul>
-                        <li>Short VR Experience (Prototype)</li>
-                        <li>Team lead (4 people)</li>
-                        <li>Lead Programmer (Unity / C#)</li>
+                        <li>Computer Game Programming</li>
+                        <li>C++ Programming</li>
+                        <li>Web Development</li>
                     </ul>
                 </span>
-            </Experience>
-            <Experience type="work" ghost>
-                <span slot="title">Your Company (hopefully!)</span>
-                <span slot="date">(2023 - ???)</span>
-                <span slot="highlights"></span>
             </Experience>
         </div>
         <div class="line"></div>
@@ -233,9 +264,21 @@
     
     .bg-video-container
         width: 100vw
-        height: 110vh
+        /* height: 110vh */
         background-color: $black
         margin-bottom: 5rem
+        padding: 3rem
+
+        +until-widescreen
+            padding: 3rem 1rem
+        
+        .text-container
+            margin: auto
+            width: 60%
+            color: $white
+
+            +until-widescreen
+                width: 100%
     
     h1
         margin: 3rem 0 2rem $left-offset-full

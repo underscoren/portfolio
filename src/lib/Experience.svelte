@@ -3,23 +3,22 @@
     import workIcon from "./img/work icon.svg"
 
     export let type: "school" | "work";
-    export let ghost = false;
 </script>
 
 <div class="experience">
-    <div class="point" class:ghost={ghost}></div>
-    <img src={type == "school" ? schoolIcon : workIcon} class:ghost={ghost} alt="">
+    <div class="point"></div>
+    <img src={type == "school" ? schoolIcon : workIcon} alt="">
     <div class="content-container">
         <div class="title-container">
             <span class="title">
-                <slot name="title">Title</slot>
+                <slot name="title"></slot>
             </span>
             <span class="date">
-                <slot name="date">(Date)</slot>
+                <slot name="date"></slot>
             </span>
         </div>
         <div class="highlights content">
-            <slot name="highlights">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi at ducimus dolorum recusandae praesentium ad, neque aspernatur rem ab aliquam distinctio corporis iure quaerat quisquam, iusto odio veritatis soluta vitae.</slot>
+            <slot name="highlights"></slot>
         </div>
     </div>
 </div>
@@ -48,9 +47,6 @@
         outline: 10px solid $cream
         background-color: $cream
         border-radius: 50%
-
-        &.ghost
-            border-color: #98A39D
     
     img
         width: 1.5rem
@@ -59,9 +55,6 @@
         top: 0
         left: 0
         transform: translate(-50%, 33%)
-
-        &.ghost
-            opacity: 50%
     
     .content-container
         margin-left: 3.75rem
