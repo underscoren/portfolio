@@ -153,7 +153,7 @@
                             <li>Svelte / TypeScript (Modern frontend toolchain)</li>
                             <li>Custom game-inspired UX</li>
                             <li>Website viewable here (link TBC)</li>
-                            <li>Source available <a href="/">here</a></li>
+                            <li>Source available <a target="_blank" rel="noreferrer" href="https://github.com/underscoren/vs-furnace-calc">here</a></li>
                         </ul>
                     </span>
                 </Project>

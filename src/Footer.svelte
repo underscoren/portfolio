@@ -62,7 +62,7 @@
                 margin-left: 0.33rem
 
             &.external
-                text-decoration: underline dotted
+                text-decoration: underline
                 
                 &::after
                     color: #199BCD
