@@ -3,10 +3,10 @@
 
     let pongComponent: any;
 
-    // force component to be loaded dynamically instead of SSR
+    // force component to be loaded dynamically instead of failing to SSR
     onMount(async () => {
         const pongModule = await import("./Pong.svelte");
-        pongComponent = pongModule.default 
+        pongComponent = pongModule.default;
     });
 </script>
 
