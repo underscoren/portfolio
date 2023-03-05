@@ -1,8 +1,7 @@
 import { Application } from "pixi.js"
 import { Time } from "./util";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { MainScene, type IScene } from "./Scenes";
-import { GameAssets } from "./Assets";
+import { LoadingScene, type IScene } from "./Scenes";
 
 class PongGame {
     static app: Application;
@@ -12,29 +11,20 @@ class PongGame {
         PongGame.app = new Application({
             view: canvas,
             width: SCREEN_WIDTH,
-            height: SCREEN_HEIGHT
+            height: SCREEN_HEIGHT,
+            background: 0x03001C
         });
-        
-        console.log("setup application");
-        
+
         // setup main loop
         PongGame.app.ticker.add(() => {
             Time.deltaMS = PongGame.app.ticker.deltaMS;
             PongGame.currentScene?.update();
         });
 
-        // IIFE to perform async task
-        (async () => {
-            // load assets
-            await GameAssets.load();
+        const loadScene = new LoadingScene();
+        PongGame.changeScene(loadScene);
 
-
-            // set initial scene
-            const mainScene = new MainScene();
-            PongGame.changeScene(mainScene);
-        })().then(() => {
-            console.log("finished init");
-        });
+        console.log("init success");
     }
 
     static async changeScene(scene: IScene) {
