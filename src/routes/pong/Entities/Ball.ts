@@ -1,41 +1,9 @@
-import { easeOutExpo, Entity, lerp, Time, type ICollider } from "./util";
-import { SCREEN_HEIGHT } from "./constants";
 import { Point, Rectangle, Texture } from "pixi.js";
+import { SCREEN_HEIGHT } from "../constants";
+import { Entity, Time, type ICollider } from "../util";
+import { Paddle } from "./Paddle";
 
-class Paddle extends Entity implements ICollider {
-    /** The multiplier for x velocity when ball collides with paddle */
-    static paddleCurve = 0.005;
-    static paddleSpeed = 80;
-    
-    constructor() {
-        super();
-        this.texture = Texture.from("paddle");
-        this.anchor.set(0.5);
-    }
-
-    get collider() {
-        return this.getBounds();
-    }
-
-    onCollide = undefined;
-}
-
-class Wall extends Entity implements ICollider {
-    protected _name = "Wall";
-
-    constructor() {
-        super();
-        this.texture = Texture.from("wall");
-    }
-
-    get collider() {
-        return this.getBounds();
-    }
-
-    onCollide = undefined;
-}
-
-class Ball extends Entity implements ICollider {
+export class Ball extends Entity implements ICollider {
     constructor(
         public velX = 0,
         public velY = 0
@@ -116,56 +84,4 @@ class Ball extends Entity implements ICollider {
             this.remove();
         }
     }
-}
-
-
-class Cannon extends Entity {
-    constructor() {
-        super();
-        this.texture = Texture.from("cannon");
-    }
-
-    lifetime = 0;
-    spawnedBall = false;
-
-    static RISE_TIME = 500; // time for cannon to rise and spawn ball
-    static FALL_TIME = 350;
-    static TOTAL_LIFETIME = this.RISE_TIME + this.FALL_TIME;
-
-    onSpawnBall: undefined | (() => void);
-
-    update() {
-        this.lifetime += Time.deltaMSScaled;
-
-        if(this.lifetime < Cannon.RISE_TIME) {
-            this.y = lerp(
-                SCREEN_HEIGHT, 
-                SCREEN_HEIGHT - this.height, 
-                this.lifetime / Cannon.RISE_TIME
-            );
-        }
-        
-        if (this.lifetime > Cannon.RISE_TIME) {
-            if(!this.spawnedBall) {
-                this.onSpawnBall?.();
-                this.spawnedBall = true;
-            }
-
-            this.y = lerp(
-                SCREEN_HEIGHT - this.height, 
-                SCREEN_HEIGHT, 
-                easeOutExpo((this.lifetime - Cannon.RISE_TIME) / Cannon.FALL_TIME)
-            );
-        }
-
-        if(this.lifetime > Cannon.TOTAL_LIFETIME)
-            this.remove();
-    }
-}
-
-export {
-    Wall,
-    Paddle,
-    Ball,
-    Cannon
 }

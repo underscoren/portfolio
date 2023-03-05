@@ -1,7 +1,8 @@
 import { Application } from "pixi.js"
-import { Time } from "./util";
+import { Time, type IScene } from "./util";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { LoadingScene, type IScene } from "./Scenes";
+import { LoadingScene } from "./Scenes/LoadingScene";
+import "@pixi/sound"
 
 class PongGame {
     static app: Application;

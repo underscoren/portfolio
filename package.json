@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"@pixi/math-extras": "^7.1.4",
+		"@pixi/sound": "^5.1.0",
 		"normalize.css": "^8.0.1",
 		"pixi.js": "^7.1.4"
 	}

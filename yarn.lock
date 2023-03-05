@@ -339,6 +339,11 @@
     "@pixi/constants" "7.1.4"
     "@types/css-font-loading-module" "^0.0.7"
 
+"@pixi/sound@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@pixi/sound/-/sound-5.1.0.tgz#4e80669b4b59470970f562196269d30f64a93e3c"
+  integrity sha512-B0yLZySwwiCnjiC/auaC6ovQ+JpmA2HUgA2KYCBWiHCQh9ib1ftcBrb/JbUJ04mUQRKngZNXRxjtD/wbKg9fPg==
+
 "@pixi/sprite-animated@7.1.4":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@pixi/sprite-animated/-/sprite-animated-7.1.4.tgz#05fdce4e0b30f4000ac9c0295ccbdd491f30c441"
