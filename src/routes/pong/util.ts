@@ -1,4 +1,4 @@
-import { Rectangle, Sprite, Texture } from "pixi.js";
+import { Rectangle, Sprite } from "pixi.js";
 
 /** 
  * Abstract game entity class. Used to consolidate common
@@ -55,7 +55,7 @@ export interface ICollider {
     collider: Rectangle;
 
     /** Called when entity collides with another in the scene */
-    onCollide: undefined | ((other: Entity) => void);
+    onCollide: undefined | ((other: Entity & ICollider, intersection: Rectangle) => void);
 }
 
 /** Clamp a value between min and max */

@@ -77,7 +77,7 @@ class MainScene extends Container implements IScene {
 
         BallManager.add(ball);
         this.entity.addEntity(ball);
-        ball.onBallOffscreen = top => this.score.addScore(top ? 80 : -100)
+        ball.onBallOffscreen = top => this.score.addScore(top ? 80 : -100);
         console.log("spawning ball");
     }
 
@@ -107,9 +107,11 @@ class MainScene extends Container implements IScene {
 
         // perform collision
         for(const ball of BallManager.balls)
-            for(const other of colliders)
-                if(ball.collider.intersects(other.collider))
-                    ball.onCollide(other);
+            for(const other of colliders) {
+                const intersection = ball.collider.intersection(other.collider);
+                if(intersection.width > 0 && intersection.height > 0)
+                    ball.onCollide(other, intersection);
+            }
         
         // test: spawn some balls
         this.spawnerDelay += Time.deltaMSScaled;

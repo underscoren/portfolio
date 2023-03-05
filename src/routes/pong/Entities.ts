@@ -1,6 +1,6 @@
 import { easeOutExpo, Entity, lerp, Time, type ICollider } from "./util";
 import { SCREEN_HEIGHT } from "./constants";
-import { Texture } from "pixi.js";
+import { Point, Rectangle, Texture } from "pixi.js";
 
 class Paddle extends Entity implements ICollider {
     /** The multiplier for x velocity when ball collides with paddle */
@@ -49,9 +49,16 @@ class Ball extends Entity implements ICollider {
         return this.getBounds();
     }
 
-    onCollide(other: Entity) {
+    onCollide(other: Entity & ICollider, intersection: Rectangle) {
         if(other.name == "Wall") {
             this.velX *= -1;
+
+            // displace ball by wall intersection
+            if(this.velX > 0) // left wall intersection
+                this.x += intersection.width;
+            else // right wall intersection
+                this.x -= intersection.width;
+
         } else { // assume paddle
             const ballYSpeed = Math.abs(this.velY);
             
@@ -62,7 +69,31 @@ class Ball extends Entity implements ICollider {
                 this.velY = -ballYSpeed;
             
             this.velX = (this.x - other.x) * Paddle.paddleCurve;
+            
+            // displace ball by intersected distance to prevent glitching inside objects (this assumes single-object intersection)
+    
+            const otherCollider = other.collider;
+            const otherMiddle = new Point(
+                otherCollider.x + otherCollider.width / 2,
+                otherCollider.y - otherCollider.height / 2
+            )
+            // ball coordinates are already in the middle
+    
+            const intersectionVector = new Point(this.x, this.y).subtract(otherMiddle);
+            let angle = Math.atan(intersectionVector.y / intersectionVector.x); // angle of intersection
+            angle -= Math.PI / 4; // "rotate" angle by pi/4 to create four "quarants" on each diagonal like so: X (imagine that's a graph)
+    
+            if (angle <= (Math.PI / 2)) { // from above
+                this.y += intersection.height;
+            } else if(angle > (Math.PI / 2) && angle <= Math.PI) { // from right
+                this.x += intersection.width;
+            } else if(angle > Math.PI && angle <= (3 * Math.PI / 2)) { // from below
+                this.y -= intersection.height;
+            } else { // from left
+                this.x -= intersection.width;
+            }
         }
+
     }
 
     /** Called when the ball goes off screen */
