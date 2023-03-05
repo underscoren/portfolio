@@ -26,8 +26,10 @@ export class LoadingScene extends Container implements IScene {
         this.loadingBarFG.endFill();
         this.loadingBarFG.scale.x = 0;
 
-        this.loadingBarBG.lineStyle(4, 0xffffff);
-        this.loadingBarBG.drawRect(0, 2, barWidth, barHeight-2);
+        const lineWidth = 5;
+        const lineOffset = Math.floor(lineWidth/2);
+        this.loadingBarBG.lineStyle(lineWidth, 0xffffff);
+        this.loadingBarBG.drawRect(-lineOffset, -lineOffset, barWidth+lineOffset, barHeight+lineOffset);
         
         this.loadingBar.addChild(this.loadingBarBG);
         this.loadingBar.addChild(this.loadingBarFG);
@@ -48,6 +50,8 @@ export class LoadingScene extends Container implements IScene {
         this.loadingText.anchor.set(0.5);
 
         this.addChild(this.loadingText);
+        this.cursor = "wait";
+
 
         // IIFE to perform async task
         (async () => {
@@ -60,6 +64,7 @@ export class LoadingScene extends Container implements IScene {
 
             this.interactive = true;
             this.hitArea = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            this.cursor = "pointer";
             this.once("click", () => {
                 const mainscene = new MainScene();
                 PongGame.changeScene(mainscene);
@@ -82,7 +87,7 @@ export class LoadingScene extends Container implements IScene {
             this.loadingBar.alpha = lerp(
                 this.loadingBar.alpha, 
                 0, 
-                easeOutExpo(Math.min(this.timer / 1300,1))
+                easeOutExpo(Math.min(this.timer / 30000,1))
             );
             
             this.loadingText.y = lerp(
@@ -91,7 +96,7 @@ export class LoadingScene extends Container implements IScene {
                 Time.deltaMS / 1000
             );
         } else {
-            if(this.timer > 450) {
+            if(this.timer > 350) {
                 this.timer = 0;
                 this.loadingText.text += ".";
                 if(this.loadingText.text.length > 10)
