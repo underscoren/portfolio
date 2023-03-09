@@ -14,6 +14,12 @@ export const manifest: ResolverManifest = {
             },
         },
         {
+            name: "ui",
+            assets: {
+                "music-notification": "/assets/music_notification.svg"
+            }
+        },
+        {
             name: "audio",
             assets: {
                 "game-audio": "/assets/popcorn.mp3",
@@ -28,10 +34,10 @@ class GameAssets {
 
     static async load() {
         await Assets.init({manifest});
-        await Assets.loadBundle(["sprites", "audio"], progress => GameAssets.onProgress?.(progress));
+        await Assets.loadBundle(["sprites", "ui", "audio"], progress => GameAssets.onProgress?.(progress));
 
         GameAssets.loaded = true;
-        console.log("loadeded assets");
+        console.log("loaded assets");
     }
 
     static onProgress: undefined | ((progress: number) => unknown);

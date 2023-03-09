@@ -2,8 +2,10 @@ import { Container, Rectangle, Text, TextStyle } from "pixi.js";
 import { BALL_RADIUS, CANNON_RADIUS, PADDLE_YOFFSET, SCREEN_HEIGHT, SCREEN_WIDTH, WALL_WIDTH } from "../constants";
 import { Ball } from "../Entities/Ball";
 import { Cannon } from "../Entities/Cannon";
+import { MusicNotification } from "../Entities/MusicNotification";
 import { Paddle } from "../Entities/Paddle";
 import { Wall } from "../Entities/Wall";
+import { AudioManager } from "../Systems/AudioManager";
 import { BallManager } from "../Systems/BallManager";
 import { EntitySystem } from "../Systems/EntitySystem";
 import { PaddleManager } from "../Systems/PaddleManager";
@@ -11,16 +13,19 @@ import { ScoreSystem } from "../Systems/ScoreSystem";
 import { Input, Time, type IScene } from "../util";
 
 export class MainScene extends Container implements IScene {
-    entity: EntitySystem;
-    score: ScoreSystem;
+    entitySystem: EntitySystem;
+    scoreSystem: ScoreSystem;
     paddleManager: PaddleManager;
     ballManager = new BallManager();
+    audioManager: AudioManager;
 
     paddleTop = new Paddle();
     paddleBottom = new Paddle();
     leftWall = new Wall();
     rightWall = new Wall();
+
     scoreText = new Text();
+    musicNotification = new MusicNotification("EON - Popcorn Remix");
 
     spawnerDelay = 0;
 
@@ -28,9 +33,10 @@ export class MainScene extends Container implements IScene {
         super();
 
         // setup systems
-        this.entity = new EntitySystem(this);
-        this.score = new ScoreSystem(this.scoreText);
+        this.entitySystem = new EntitySystem(this);
+        this.scoreSystem = new ScoreSystem(this.scoreText);
         this.paddleManager = new PaddleManager(this.paddleTop, this.paddleBottom);
+        this.audioManager = new AudioManager();
 
         // make entire stage interactable
         this.interactive = true;
@@ -51,7 +57,7 @@ export class MainScene extends Container implements IScene {
 
         // add entities
         for(const entity of [this.paddleTop, this.paddleBottom, this.leftWall, this.rightWall]) 
-            this.entity.addEntity(entity);
+            this.entitySystem.addEntity(entity);
         
         // setup score text
         this.scoreText.text = "Score: 0";
@@ -64,6 +70,10 @@ export class MainScene extends Container implements IScene {
             fontSize: 20
         })
         this.addChild(this.scoreText);
+
+        // play music
+        this.audioManager.playMusic();
+        this.entitySystem.addEntity(this.musicNotification);
         
         console.log("setup mainscene");
     }
@@ -77,8 +87,8 @@ export class MainScene extends Container implements IScene {
         ball.velY = velY;
 
         BallManager.add(ball);
-        this.entity.addEntity(ball);
-        ball.onBallOffscreen = top => this.score.addScore(top ? 80 : -100);
+        this.entitySystem.addEntity(ball);
+        ball.onBallOffscreen = top => this.scoreSystem.addScore(top ? 80 : -100);
         console.log("spawning ball");
     }
 
@@ -94,7 +104,7 @@ export class MainScene extends Container implements IScene {
         cannon.onSpawnBall = () => 
             this.spawnBall(cannon.x, cannon.y - BALL_RADIUS, 0, -0.5);
 
-        this.entity.addEntity(cannon);
+        this.entitySystem.addEntity(cannon);
     }
 
     update() {
@@ -102,7 +112,7 @@ export class MainScene extends Container implements IScene {
         this.paddleManager.update();
         
         // update entites
-        this.entity.update();
+        this.entitySystem.update();
         
         const colliders = [this.leftWall, this.rightWall, this.paddleTop, this.paddleBottom];
 
@@ -122,6 +132,6 @@ export class MainScene extends Container implements IScene {
         }
 
         // update score display
-        this.score.update();
+        this.scoreSystem.update();
     }
 }

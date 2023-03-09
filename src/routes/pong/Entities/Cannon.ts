@@ -6,6 +6,8 @@ export class Cannon extends Entity {
     constructor() {
         super();
         this.texture = Texture.from("cannon");
+        this.anchor.set(0.5,0);
+        this.y = SCREEN_HEIGHT;
     }
 
     lifetime = 0;

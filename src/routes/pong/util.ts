@@ -33,12 +33,31 @@ class Time {
     /** Time elapsed since the last update */
     static deltaMS = 0;
     
+    private static _timeScale = 1;
     /** Multiplier for elapsed time */
-    static timeScale = 1;
+    static get timeScale() {
+        return Time._timeScale;
+    };
+
+    static set timeScale(value: number) {
+        this._timeScale = value;
+        this._listeners.forEach(l => l()); // call each timescale change event listener
+    }
+
+    private static _listeners: (() => unknown)[] = [];
+    /** Add event listener for timescale change event */
+    static addTimescaleEventListener(listener: () => unknown) {
+        Time._listeners.push(listener);
+    }
+
+    /** Removee event listener for timescale change event */
+    static removeTimescaleEventListener(listener: () => unknown) {
+        Time._listeners = Time._listeners.filter(l => l != listener);
+    }
     
     /** deltaMS scaled to the current timeScale */
     static get deltaMSScaled() {
-        return Time.deltaMS * Time.timeScale;
+        return Time.deltaMS * Time._timeScale;
     }
 }
 
@@ -71,6 +90,14 @@ export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 /** Exponential easing function */
 export const easeOutExpo = (x: number) => x == 1 ? 1 : 1 - Math.pow(2, -10 * x);
+
+/** Bounce-back ease out function */
+export const easeOutBack = (x: number) => {
+    const c1 = 1.70158;
+    const c3 = c1 + 1;
+    
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+}
 
 export {
     Entity,

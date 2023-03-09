@@ -31,8 +31,8 @@ export class LoadingScene extends Container implements IScene {
         this.loadingBarBG.lineStyle(lineWidth, 0xffffff);
         this.loadingBarBG.drawRect(-lineOffset, -lineOffset, barWidth+lineOffset, barHeight+lineOffset);
         
-        this.loadingBar.addChild(this.loadingBarBG);
         this.loadingBar.addChild(this.loadingBarFG);
+        this.loadingBar.addChild(this.loadingBarBG);
 
         this.loadingBar.x = (SCREEN_WIDTH - this.loadingBar.width) / 2;
         this.loadingBar.y = (SCREEN_HEIGHT - this.loadingBar.height) / 2;
