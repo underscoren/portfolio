@@ -7,7 +7,7 @@ import { easeOutExpo, lerp, Time, type IScene } from "../util";
 import { MainScene } from "./MainScene";
 
 export class LoadingScene extends Container implements IScene {
-    
+
     loadingText = new Text("Loading");
     loadingBar = new Container();
     loadingBarBG = new Graphics();
@@ -30,13 +30,13 @@ export class LoadingScene extends Container implements IScene {
         const lineOffset = Math.floor(lineWidth/2);
         this.loadingBarBG.lineStyle(lineWidth, 0xffffff);
         this.loadingBarBG.drawRect(-lineOffset, -lineOffset, barWidth+lineOffset, barHeight+lineOffset);
-        
+
         this.loadingBar.addChild(this.loadingBarFG);
         this.loadingBar.addChild(this.loadingBarBG);
 
         this.loadingBar.x = (SCREEN_WIDTH - this.loadingBar.width) / 2;
         this.loadingBar.y = (SCREEN_HEIGHT - this.loadingBar.height) / 2;
-        
+
         this.addChild(this.loadingBar);
 
         this.loadingText.style = new TextStyle({
@@ -59,7 +59,7 @@ export class LoadingScene extends Container implements IScene {
             // load assets
             await GameAssets.load();
 
-            this.loadingText.text = "Click here to continue";
+            this.loadingText.text = "Click here to continue\n(Audio Warning!)";
             this.timer = 0;
 
             this.interactive = true;
@@ -85,14 +85,14 @@ export class LoadingScene extends Container implements IScene {
 
         if(GameAssets.loaded) {
             this.loadingBar.alpha = lerp(
-                this.loadingBar.alpha, 
-                0, 
-                easeOutExpo(Math.min(this.timer / 30000,1))
+                this.loadingBar.alpha,
+                0,
+                easeOutExpo(Math.min(this.timer / 30000, 1))
             );
-            
+
             this.loadingText.y = lerp(
-                this.loadingText.y, 
-                (SCREEN_HEIGHT - this.loadingBar.height) / 2, 
+                this.loadingText.y,
+                (SCREEN_HEIGHT - this.loadingBar.height) / 2,
                 Time.deltaMS / 1000
             );
         } else {

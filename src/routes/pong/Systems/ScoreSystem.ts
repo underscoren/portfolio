@@ -1,11 +1,12 @@
 import type { Text } from "pixi.js";
 import { System, Time } from "../util";
 
-export class ScoreSystem extends System {
-    static speed = 100;
-    static scaleMult = 1.5;
-    static scaleMax = 20 * 3.5;
+const SPEED = 100;
+const SCALE_MULT = 1.5;
+const SCALE_MAX = 20 * 3.5;
 
+/** Handles displaying the score on the screen, and fancy effects */
+export class ScoreSystem extends System {
     displayedScore = 0;
     score = 0;
     fontSize = 20;
@@ -16,13 +17,13 @@ export class ScoreSystem extends System {
 
     addScore(score: number) {
         this.score += score;
-        this.fontSize = Math.min(this.fontSize * ScoreSystem.scaleMult, ScoreSystem.scaleMax)
+        this.fontSize = Math.min(this.fontSize * SCALE_MULT, SCALE_MAX)
         this.text.style.fontSize = this.fontSize;
     }
 
     update() {
         if(Math.abs(this.score - this.displayedScore) > 0) {
-            this.displayedScore += ((this.score - this.displayedScore) / ScoreSystem.speed) * Time.deltaMSScaled;
+            this.displayedScore += ((this.score - this.displayedScore) / SPEED) * Time.deltaMSScaled;
             
             if(Math.abs(this.score - this.displayedScore) < 1)
                 this.displayedScore = this.score;

@@ -1,5 +1,6 @@
 import { Point, Rectangle, Texture } from "pixi.js";
 import { SCREEN_HEIGHT } from "../constants";
+import { EntitySystem } from "../Systems/EntitySystem";
 import { Entity, Time, type ICollider } from "../util";
 import { Paddle } from "./Paddle";
 
@@ -76,12 +77,12 @@ export class Ball extends Entity implements ICollider {
         // check if ball is off screen
         if((this.y - radius) > SCREEN_HEIGHT) { // on player side
             this.onBallOffscreen?.(false);
-            this.remove();
+            EntitySystem.delete(this);
         }
 
         if((this.y + radius) < 0) { // on opponent side
             this.onBallOffscreen?.(true);
-            this.remove();
+            EntitySystem.delete(this);
         }
     }
 }

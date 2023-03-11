@@ -1,5 +1,6 @@
 import { Text, TextMetrics, TextStyle, Texture } from "pixi.js";
 import { SCREEN_WIDTH } from "../constants";
+import { EntitySystem } from "../Systems/EntitySystem";
 import { easeOutBack, Entity, lerp, Time } from "../util";
 
 const RISE_TIME = 550;
@@ -58,6 +59,6 @@ export class MusicNotification extends Entity {
         }
 
         if(this.lifetime > FALL_TIME_CUMUL)
-            this.remove();
+            EntitySystem.delete(this);
     }
 }

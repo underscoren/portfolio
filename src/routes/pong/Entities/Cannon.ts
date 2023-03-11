@@ -1,5 +1,6 @@
 import { Texture } from "pixi.js";
 import { SCREEN_HEIGHT } from "../constants";
+import { EntitySystem } from "../Systems/EntitySystem";
 import { easeOutExpo, Entity, lerp, Time } from "../util";
 
 export class Cannon extends Entity {
@@ -44,6 +45,6 @@ export class Cannon extends Entity {
         }
 
         if(this.lifetime > Cannon.TOTAL_LIFETIME)
-            this.remove();
+            EntitySystem.delete(this);
     }
 }

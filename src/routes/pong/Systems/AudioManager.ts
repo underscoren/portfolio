@@ -12,6 +12,7 @@ export class AudioManager extends System {
         super();
         this.bgAudio = Assets.get("game-audio");
         this.menuAudio = Assets.get("menu-audio");
+        
         Time.addTimescaleEventListener(() => {
             const scale = Time.timeScale;
             for(const sound of this.activeSounds)
@@ -19,11 +20,16 @@ export class AudioManager extends System {
         });
     }
 
-    playMusic() {
-        this.bgAudio.play();
+    /** 
+     * Plays the background music for the main game section
+     * @param endCallback a callback for when the audio finishes playing 
+     */
+    playMusic(endCallback: () => unknown) {
+        this.bgAudio.play(endCallback);
         this.activeSounds.push(this.bgAudio);
     }
 
+    /** Plays a named sound */
     playOneshot(soundName: string) {
         const sound = Assets.get(soundName) as Sound;
         sound.play();

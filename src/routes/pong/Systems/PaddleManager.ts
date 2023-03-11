@@ -3,6 +3,7 @@ import { Paddle } from "../Entities/Paddle";
 import { clamp, Input, System, Time } from "../util";
 import { BallManager } from "./BallManager";
 
+/** Handles moving both the player and AI paddle */
 export class PaddleManager extends System {
     constructor(
         private paddleTop: Paddle,

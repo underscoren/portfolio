@@ -1,6 +1,10 @@
 import { PADDLE_YOFFSET } from "../constants";
 import type { Ball } from "../Entities/Ball";
 
+/** 
+ * A class to keep track of all the balls on the screen, 
+ * and the closest ball to the AI 
+ */
 export class BallManager {
     static balls: Ball[] = [];
 
@@ -18,9 +22,13 @@ export class BallManager {
         
         return closest;
     }
+
+    static get ballCount() {
+        return this.balls.length;
+    }
     
     static add(ball: Ball) {
-        BallManager.balls.push(ball);
-        ball.on("removed", () => BallManager.balls.filter(b => b == ball));
+        this.balls.push(ball);
+        ball.on("removed", () => this.balls = this.balls.filter(b => b != ball));
     }
 }

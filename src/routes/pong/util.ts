@@ -12,23 +12,14 @@ abstract class Entity extends Sprite {
         return this._name ?? this.constructor.name;
     }
 
-    /** A marker for the game to delete this object during the game loop */
-    private _alive = true;
-
-    get alive() {
-        return this._alive;
-    }
+    /** A marker for the game to delete this object during at the end of the game loop */
+    markedForDeletion = false;
 
     /** Called once every ticker update */
     update() {/* noop */};
-
-    /** Mark entity for deletion */
-    remove() {
-        this._alive = false;
-    }
 }
 
-/** Class to hold timing related data */
+/** Holds timing related data */
 class Time {
     /** Time elapsed since the last update */
     static deltaMS = 0;
@@ -50,12 +41,12 @@ class Time {
         Time._listeners.push(listener);
     }
 
-    /** Removee event listener for timescale change event */
+    /** Remove event listener for timescale change event */
     static removeTimescaleEventListener(listener: () => unknown) {
         Time._listeners = Time._listeners.filter(l => l != listener);
     }
     
-    /** deltaMS scaled to the current timeScale */
+    /** `deltaMS` scaled to the current `timeScale` */
     static get deltaMSScaled() {
         return Time.deltaMS * Time._timeScale;
     }
@@ -66,10 +57,12 @@ abstract class System {
     update() {/* noop */};
 }
 
+/** Mostly just a convenient holder, may be useful later */
 class Input {
     static mouseX = 0;
 }
 
+/** An interface for entities that perform AABB collisions */
 export interface ICollider {
     collider: Rectangle;
 
@@ -77,6 +70,7 @@ export interface ICollider {
     onCollide: undefined | ((other: Entity & ICollider, intersection: Rectangle) => void);
 }
 
+/** An interface for game scenes (which are just containers) */
 export interface IScene extends DisplayObject {
     /** Called once every frame */
     update: () => unknown;

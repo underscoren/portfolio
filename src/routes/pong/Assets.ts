@@ -1,7 +1,6 @@
 import { Assets, type ResolverManifest } from "pixi.js";
 
 
-
 export const manifest: ResolverManifest = {
     bundles: [
         {
@@ -29,6 +28,10 @@ export const manifest: ResolverManifest = {
     ]
 }
 
+/** 
+ * Handles loading all the game assets
+ * TODO: audio takes a while to load, attempt to load less useful audio in the background
+ */
 class GameAssets {
     static loaded = false;
 

@@ -25,10 +25,18 @@ export class EntitySystem extends System {
         
         // remove all entites marked for deletion
         for(const entity of this._entities) 
-            if(!entity.alive)
+            if(entity.markedForDeletion)
                 entity.parent.removeChild(entity);
         
         // remove references to deleted entites
-        this._entities = this._entities.filter(e => e.alive);
+        this._entities = this._entities.filter(e => !e.markedForDeletion);
+    }
+
+    /** 
+     * Mark an entity for deletion (removes it from the scene and entity 
+     * system at the end of the current loop) 
+     */
+    static delete(entity: Entity) {
+        entity.markedForDeletion = true;
     }
 }
