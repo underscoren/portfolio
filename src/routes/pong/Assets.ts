@@ -6,23 +6,25 @@ export const manifest: ResolverManifest = {
         {
             name: "sprites",
             assets: {
-                "paddle": "/assets/paddle.svg",
-                "ball": "/assets/ball.svg",
-                "wall": "/assets/wall.svg",
-                "cannon": "/assets/cannon.svg",
+                "paddle": "/assets/img/paddle.svg",
+                "ball": "/assets/img/ball.svg",
+                "wall": "/assets/img/wall.svg",
+                "cannon": "/assets/img/cannon.svg",
+                "shot": "/assets/img/shot.svg",
+                "power": "/assets/img/power.svg",
             },
         },
         {
             name: "ui",
             assets: {
-                "music-notification": "/assets/music_notification.svg"
+                "music-notification": "/assets/img/music_notification.svg"
             }
         },
         {
             name: "audio",
             assets: {
-                "game-audio": "/assets/popcorn.mp3",
-                "menu-audio": "/assets/sadgarden.mp3"
+                "game-audio": "/assets/mus/popcorn.mp3",
+                "menu-audio": "/assets/mus/sadgarden.mp3"
             }
         }
     ]

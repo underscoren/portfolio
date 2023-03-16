@@ -1,4 +1,4 @@
-import { Point, Rectangle, Texture } from "pixi.js";
+import { Rectangle, Texture } from "pixi.js";
 import { SCREEN_HEIGHT } from "../constants";
 import { EntitySystem } from "../Systems/EntitySystem";
 import { Entity, Time, type ICollider } from "../util";
@@ -31,36 +31,13 @@ export class Ball extends Entity implements ICollider {
         } else { // assume paddle
             const ballYSpeed = Math.abs(this.velY);
             
-            if(this.y > other.y) // ball is above paddle, must bounce upwards
+            if(this.y < SCREEN_HEIGHT / 2 ) // ball is in upper half must bounce downwards
                 this.velY = ballYSpeed;
             
-            if(this.y < other.y) // ball is below paddle, must bounce downwards
+            if(this.y > SCREEN_HEIGHT / 2) // ball is in lower half, must bounce upwards
                 this.velY = -ballYSpeed;
             
             this.velX = (this.x - other.x) * Paddle.paddleCurve;
-            
-            // displace ball by intersected distance to prevent glitching inside objects (this assumes single-object intersection)
-    
-            const otherCollider = other.collider;
-            const otherMiddle = new Point(
-                otherCollider.x + otherCollider.width / 2,
-                otherCollider.y - otherCollider.height / 2
-            )
-            // ball coordinates are already in the middle
-    
-            const intersectionVector = new Point(this.x, this.y).subtract(otherMiddle);
-            let angle = Math.atan(intersectionVector.y / intersectionVector.x); // angle of intersection
-            angle -= Math.PI / 4; // "rotate" angle by pi/4 to create four "quarants" on each diagonal like so: X (imagine that's a graph)
-    
-            if (angle <= (Math.PI / 2)) { // from above
-                this.y += intersection.height;
-            } else if(angle > (Math.PI / 2) && angle <= Math.PI) { // from right
-                this.x += intersection.width;
-            } else if(angle > Math.PI && angle <= (3 * Math.PI / 2)) { // from below
-                this.y -= intersection.height;
-            } else { // from left
-                this.x -= intersection.width;
-            }
         }
 
     }
