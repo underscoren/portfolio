@@ -65,7 +65,7 @@ export class LoadingScene extends Container implements IScene {
             this.interactive = true;
             this.hitArea = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             this.cursor = "pointer";
-            this.once("click", () => {
+            this.once("pointerup", () => {
                 const mainscene = new MainScene();
                 PongGame.changeScene(mainscene);
             });

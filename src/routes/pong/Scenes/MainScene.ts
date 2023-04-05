@@ -11,6 +11,7 @@ import { AudioManager } from "../Systems/AudioManager";
 import { BallManager } from "../Systems/BallManager";
 import { CannonManager } from "../Systems/CannonManager";
 import { EntitySystem } from "../Systems/EntitySystem";
+import { MobileUXManager } from "../Systems/MobileUXManager";
 import { PaddleManager } from "../Systems/PaddleManager";
 import { Power as PowerType, PowerManager } from "../Systems/PowerManager";
 import { ScoreSystem } from "../Systems/ScoreSystem";
@@ -29,6 +30,7 @@ export class MainScene extends Container implements IScene {
     cannonManager = new CannonManager();
     powerManager = new PowerManager();
     audioManager: AudioManager;
+    mobileux: MobileUXManager;
 
     paddleTop = new Paddle();
     paddleBottom = new Paddle();
@@ -36,6 +38,7 @@ export class MainScene extends Container implements IScene {
     rightWall = new Wall();
 
     scoreText = new Text();
+    ammoText = new Text();
     middleText = new Text();
     musicNotification = new MusicNotification("EON - Popcorn Remix");
 
@@ -51,6 +54,7 @@ export class MainScene extends Container implements IScene {
         this.scoreSystem = new ScoreSystem(this.scoreText);
         this.paddleManager = new PaddleManager(this.paddleTop, this.paddleBottom);
         this.audioManager = new AudioManager();
+        this.mobileux = new MobileUXManager(PongGame.app.view as unknown as HTMLElement);
 
         this.cannonManager.onSpawnCannon = x => this.spawnCannon(x);
         this.powerManager.onSpawnPower = powerType => this.spawnPower(powerType);
@@ -62,16 +66,22 @@ export class MainScene extends Container implements IScene {
         
         // setup event handlers
         this.on("pointermove", ev => {
-            Input.mouseX = ev.global.x;
+            if(ev.pointerType == "mouse" || (ev.pointerType == "touch" && ev.pointerId == 0)) // don't set input using secondary touches
+                Input.mouseX = ev.global.x;
         });
 
-        this.on("pointerdown", () => {
+        this.on("pointerdown", ev => {
+            console.log(ev.pointerType, ev.pointerId)
+            if(ev.pointerType == "touch" && ev.pointerId == 0)
+                return; // only allow secondary touches to fire
+
             if(this.powerManager.ammo > 0) {
                 this.entitySystem.addEntity(
                     this.powerManager.fireShot(this.paddleBottom.x, this.paddleBottom.y, this.paddleBottom.scale.x)
                 );
 
                 this.powerManager.ammo--;
+                this.ammoText.text = `Ammmo: ${this.powerManager.ammo}`;
             }
         });
 
@@ -117,6 +127,19 @@ export class MainScene extends Container implements IScene {
         });
         this.addChild(this.scoreText);
 
+        // setup ammo text
+        this.ammoText.text = "Ammo: 0"
+
+        this.ammoText.anchor.set(1,0);
+        this.ammoText.x = SCREEN_WIDTH - (WALL_WIDTH + 20);
+        this.ammoText.y = 30;
+        this.scoreText.style = new TextStyle({
+            fill: 0xffffff,
+            fontFamily: "Arial",
+            fontSize: 20,
+            align: "right"
+        });
+
         // setup middle text
         this.middleText.anchor.set(0.5);
         this.middleText.x = SCREEN_WIDTH / 2;
@@ -137,6 +160,15 @@ export class MainScene extends Container implements IScene {
         this.entitySystem.addEntity(this.musicNotification);
         
         console.log("setup mainscene");
+
+        if(screen.width < 768 || screen.height < 768) {
+            // assume mobile, try to fullscreen
+            this.mobileux.fullscreenAndRotate();
+            this.on("tap", ()  => {
+                if(!document.fullscreenElement)
+                    this.mobileux.fullscreenAndRotate();
+            })
+        }
 
         // debug
 
