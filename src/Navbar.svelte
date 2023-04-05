@@ -4,22 +4,22 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">Marius Steffens</a>
+        <a class="navbar-item" href="/">Marius Steffens</a>
     </div>
-  
+
     <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/#game-dev">Game Dev</a>
-        <a class="navbar-item" href="/#web-dev">Web Dev</a>
-        <a class="navbar-item" href="/#experience">Experience</a>
-      </div>
-  
-      <div class="navbar-end">
-        <a class="navbar-item" href="#footer">Contact</a>
-        <a class="navbar-item" href="/Steffens, Marius CV [Programmer].pdf">CV</a>
-      </div>
+        <div class="navbar-start">
+            <a class="navbar-item" href="/#game-dev">Game Dev</a>
+            <a class="navbar-item" href="/#web-dev">Web Dev</a>
+            <a class="navbar-item" href="/#experience">Experience</a>
+        </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item" href="#footer">Contact</a>
+            <a class="navbar-item" href="/Steffens, Marius CV [Programmer].pdf">CV</a>
+        </div>
     </div>
-  </nav>
+</nav>
 
 <style lang="sass">
     @charset "utf-8"

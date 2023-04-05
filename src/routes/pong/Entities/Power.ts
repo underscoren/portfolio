@@ -16,7 +16,7 @@ export class Power extends Entity implements ICollider {
     }
 
     onCollide = undefined;
-    
+
     _name = "Power";
 
     velY = 0.3;
@@ -24,7 +24,6 @@ export class Power extends Entity implements ICollider {
     update() {
         this.y += this.velY * Time.deltaMSScaled;
 
-        if(this.y > (SCREEN_HEIGHT + 100) || this.y < -100)
-            EntitySystem.delete(this);
+        if (this.y > SCREEN_HEIGHT + 100 || this.y < -100) EntitySystem.delete(this);
     }
 }

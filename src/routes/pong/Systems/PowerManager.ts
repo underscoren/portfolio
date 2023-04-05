@@ -33,8 +33,8 @@ export class PowerManager extends System {
         [156000, Power.Ammo],
         [159000, Power.Slow],
         [162000, Power.Ammo],
-        [215000, Power.Ammo],
-    ]
+        [215000, Power.Ammo]
+    ];
 
     fireShot(paddleX: number, paddleY: number, paddleScale: number) {
         const shot = new Shot();
@@ -44,7 +44,7 @@ export class PowerManager extends System {
         this.shots.push(shot);
 
         shot.on("removed", () => {
-            this.shots = this.shots.filter(s => s != shot);
+            this.shots = this.shots.filter((s) => s != shot);
         });
 
         return shot;
@@ -57,7 +57,7 @@ export class PowerManager extends System {
         this.powers.push(power);
 
         power.on("removed", () => {
-            this.powers = this.powers.filter(p => p != power);
+            this.powers = this.powers.filter((p) => p != power);
         });
     }
 
@@ -66,32 +66,30 @@ export class PowerManager extends System {
     update() {
         this.totalTime += Time.deltaMSScaled;
 
-        const eventTimes = this.events.map(e => e[0]);
-        
+        const eventTimes = this.events.map((e) => e[0]);
+
         let i = 0;
-        while(i < eventTimes.length) {
+        while (i < eventTimes.length) {
             const eventTime = eventTimes[i];
-            
-            if(eventTime > this.totalTime)
-                break;
-            
+
+            if (eventTime > this.totalTime) break;
+
             i++;
         }
 
         const occurredEvents = this.events.slice(0, i);
         this.events = this.events.slice(i);
 
-        for(const event of occurredEvents) {
+        for (const event of occurredEvents) {
             const [_, type] = event;
             this.onSpawnPower?.(type);
         }
 
-        if(Time.timeScale != 1)
-            this.slowTimeTimer += Time.deltaMS;
-        
-        if(this.slowTimeTimer > SLOW_POWER_TIME) {
+        if (Time.timeScale != 1) this.slowTimeTimer += Time.deltaMS;
+
+        if (this.slowTimeTimer > SLOW_POWER_TIME) {
             this.slowTimeTimer = 0;
-            this.onResetTimescale?.()
+            this.onResetTimescale?.();
         }
     }
 }

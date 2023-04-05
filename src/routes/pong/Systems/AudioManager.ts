@@ -12,17 +12,16 @@ export class AudioManager extends System {
         super();
         this.bgAudio = Assets.get("game-audio");
         this.menuAudio = Assets.get("menu-audio");
-        
+
         Time.addTimescaleEventListener(() => {
             const scale = Time.timeScale;
-            for(const sound of this.activeSounds)
-                sound.speed = scale;
+            for (const sound of this.activeSounds) sound.speed = scale;
         });
     }
 
-    /** 
+    /**
      * Plays the background music for the main game section
-     * @param endCallback a callback for when the audio finishes playing 
+     * @param endCallback a callback for when the audio finishes playing
      */
     playMusic(endCallback: () => unknown) {
         this.bgAudio.play(endCallback);
@@ -38,6 +37,6 @@ export class AudioManager extends System {
 
     update() {
         // remove references to sounds that aren't playing anymore
-        this.activeSounds = this.activeSounds.filter(s => s.isPlaying);
+        this.activeSounds = this.activeSounds.filter((s) => s.isPlaying);
     }
 }

@@ -1,7 +1,7 @@
 import type { Container } from "pixi.js";
 import { Entity, System } from "../util";
 
-/** 
+/**
  * System responsible for managing game entities and removing
  * them from the scene
  */
@@ -20,21 +20,19 @@ export class EntitySystem extends System {
 
     update() {
         // update all entities
-        for(const entity of this._entities)
-            entity.update();
-        
+        for (const entity of this._entities) entity.update();
+
         // remove all entites marked for deletion
-        for(const entity of this._entities) 
-            if(entity.markedForDeletion)
-                entity.parent.removeChild(entity);
-        
+        for (const entity of this._entities)
+            if (entity.markedForDeletion) entity.parent.removeChild(entity);
+
         // remove references to deleted entites
-        this._entities = this._entities.filter(e => !e.markedForDeletion);
+        this._entities = this._entities.filter((e) => !e.markedForDeletion);
     }
 
-    /** 
-     * Mark an entity for deletion (removes it from the scene and entity 
-     * system at the end of the current loop) 
+    /**
+     * Mark an entity for deletion (removes it from the scene and entity
+     * system at the end of the current loop)
      */
     static delete(entity: Entity) {
         entity.markedForDeletion = true;

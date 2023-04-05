@@ -5,10 +5,7 @@ import { Entity, Time, type ICollider } from "../util";
 import { Paddle } from "./Paddle";
 
 export class Ball extends Entity implements ICollider {
-    constructor(
-        public velX = 0,
-        public velY = 0
-    ) {
+    constructor(public velX = 0, public velY = 0) {
         super();
         this.texture = Texture.from("ball");
         this.anchor.set(0.5);
@@ -19,27 +16,29 @@ export class Ball extends Entity implements ICollider {
     }
 
     onCollide(other: Entity & ICollider, intersection: Rectangle) {
-        if(other.name == "Wall") {
+        if (other.name == "Wall") {
             this.velX *= -1;
 
             // displace ball by wall intersection
-            if(this.velX > 0) // left wall intersection
+            if (this.velX > 0)
+                // left wall intersection
                 this.x += intersection.width;
-            else // right wall intersection
-                this.x -= intersection.width;
-
-        } else { // assume paddle
+            // right wall intersection
+            else this.x -= intersection.width;
+        } else {
+            // assume paddle
             const ballYSpeed = Math.abs(this.velY);
-            
-            if(this.y < SCREEN_HEIGHT / 2 ) // ball is in upper half must bounce downwards
+
+            if (this.y < SCREEN_HEIGHT / 2)
+                // ball is in upper half must bounce downwards
                 this.velY = ballYSpeed;
-            
-            if(this.y > SCREEN_HEIGHT / 2) // ball is in lower half, must bounce upwards
+
+            if (this.y > SCREEN_HEIGHT / 2)
+                // ball is in lower half, must bounce upwards
                 this.velY = -ballYSpeed;
-            
+
             this.velX = (this.x - other.x) * Paddle.paddleCurve;
         }
-
     }
 
     /** Called when the ball goes off screen */
@@ -50,14 +49,16 @@ export class Ball extends Entity implements ICollider {
         this.y += this.velY * Time.deltaMSScaled;
 
         const radius = this.width / 2;
-        
+
         // check if ball is off screen
-        if((this.y - radius) > SCREEN_HEIGHT) { // on player side
+        if (this.y - radius > SCREEN_HEIGHT) {
+            // on player side
             this.onBallOffscreen?.(false);
             EntitySystem.delete(this);
         }
 
-        if((this.y + radius) < 0) { // on opponent side
+        if (this.y + radius < 0) {
+            // on opponent side
             this.onBallOffscreen?.(true);
             EntitySystem.delete(this);
         }

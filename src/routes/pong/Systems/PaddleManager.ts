@@ -5,10 +5,7 @@ import { BallManager } from "./BallManager";
 
 /** Handles moving both the player and AI paddle */
 export class PaddleManager extends System {
-    constructor(
-        private paddleTop: Paddle,
-        private paddleBottom: Paddle,
-    ) {
+    constructor(private paddleTop: Paddle, private paddleBottom: Paddle) {
         super();
     }
 
@@ -19,15 +16,16 @@ export class PaddleManager extends System {
             SCREEN_WIDTH - (WALL_WIDTH + this.paddleBottom.width / 2),
             Input.mouseX
         );
-        
+
         const closestBall = BallManager.closestBall;
 
         // target the closest ball or default to middle of the screen
         const paddleTargetX = closestBall ? closestBall.x : SCREEN_WIDTH / 2;
 
         // move top paddle towards targetX
-        this.paddleTop.x += ((paddleTargetX - this.paddleTop.x) / Paddle.paddleSpeed) * Time.deltaMSScaled;
-        
+        this.paddleTop.x +=
+            ((paddleTargetX - this.paddleTop.x) / Paddle.paddleSpeed) * Time.deltaMSScaled;
+
         // clamp top paddle to screen bounds
         this.paddleTop.x = clamp(
             WALL_WIDTH + this.paddleTop.width / 2,

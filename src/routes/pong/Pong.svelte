@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+    import { onMount } from "svelte";
     import { PongGame } from "./Pong";
-    
+
     let canvas: HTMLCanvasElement;
-    
+
     onMount(() => {
         const pongGame = new PongGame(canvas);
         (window as any).pongGame = pongGame; // debug
     });
 </script>
 
-<canvas bind:this={canvas}></canvas>
+<canvas bind:this={canvas} />
 
 <style lang="sass">
     @import "../../../node_modules/bulma/sass/utilities/mixins"

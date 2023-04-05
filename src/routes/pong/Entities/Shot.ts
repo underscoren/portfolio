@@ -19,11 +19,9 @@ export class Shot extends Entity implements ICollider {
     update() {
         this.y += this.velY * Time.deltaMSScaled;
 
-        if(this.y < (ENDY + ENDY_OFFSET))
-            this.alpha = clamp(0, 1, (this.y - ENDY) / ENDY_OFFSET);
+        if (this.y < ENDY + ENDY_OFFSET) this.alpha = clamp(0, 1, (this.y - ENDY) / ENDY_OFFSET);
 
-        if(this.y < ENDY)
-            EntitySystem.delete(this);
+        if (this.y < ENDY) EntitySystem.delete(this);
     }
 
     get collider() {

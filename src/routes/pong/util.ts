@@ -1,12 +1,12 @@
 import { DisplayObject, Rectangle, Sprite } from "pixi.js";
 
-/** 
+/**
  * Abstract game entity class. Used to consolidate common
- * behaviour of all entities (update call, texture, lifetime management) 
+ * behaviour of all entities (update call, texture, lifetime management)
  */
 abstract class Entity extends Sprite {
     protected _name: string | undefined;
-    
+
     /** Entity name. Defaults to name of class (warning: default will not be usable if code is minified) */
     get name() {
         return this._name ?? this.constructor.name;
@@ -16,23 +16,25 @@ abstract class Entity extends Sprite {
     markedForDeletion = false;
 
     /** Called once every ticker update */
-    update() {/* noop */};
+    update() {
+        /* noop */
+    }
 }
 
 /** Holds timing related data */
 class Time {
     /** Time elapsed since the last update */
     static deltaMS = 0;
-    
+
     private static _timeScale = 1;
     /** Multiplier for elapsed time */
     static get timeScale() {
         return Time._timeScale;
-    };
+    }
 
     static set timeScale(value: number) {
         this._timeScale = value;
-        this._listeners.forEach(l => l()); // call each timescale change event listener
+        this._listeners.forEach((l) => l()); // call each timescale change event listener
     }
 
     private static _listeners: (() => unknown)[] = [];
@@ -43,9 +45,9 @@ class Time {
 
     /** Remove event listener for timescale change event */
     static removeTimescaleEventListener(listener: () => unknown) {
-        Time._listeners = Time._listeners.filter(l => l != listener);
+        Time._listeners = Time._listeners.filter((l) => l != listener);
     }
-    
+
     /** `deltaMS` scaled to the current `timeScale` */
     static get deltaMSScaled() {
         return Time.deltaMS * Time._timeScale;
@@ -54,7 +56,9 @@ class Time {
 
 /** Abstract container for high-level game functionality */
 abstract class System {
-    update() {/* noop */};
+    update() {
+        /* noop */
+    }
 }
 
 /** Mostly just a convenient holder, may be useful later */
@@ -77,25 +81,21 @@ export interface IScene extends DisplayObject {
 }
 
 /** Clamp a value between min and max */
-export const clamp = (min: number, max: number, value: number) => Math.min(max, Math.max(min, value));
+export const clamp = (min: number, max: number, value: number) =>
+    Math.min(max, Math.max(min, value));
 
 /** Linearly interpolates a value betweeen `a` and `b` by value `t` */
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 /** Exponential easing function */
-export const easeOutExpo = (x: number) => x == 1 ? 1 : 1 - Math.pow(2, -10 * x);
+export const easeOutExpo = (x: number) => (x == 1 ? 1 : 1 - Math.pow(2, -10 * x));
 
 /** Bounce-back ease out function */
 export const easeOutBack = (x: number) => {
     const c1 = 1.70158;
     const c3 = c1 + 1;
-    
-    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
-}
 
-export {
-    Entity,
-    System,
-    Time,
-    Input
-}
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+};
+
+export { Entity, System, Time, Input };

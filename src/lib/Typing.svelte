@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type { InputData } from "../lib/InputCapture.svelte"
+    import type { InputData } from "../lib/InputCapture.svelte";
 
-	export let wordList: InputData[];
+    export let wordList: InputData[];
     export let startDelay: number = 1750;
     export let wordDelay: number = 5000;
     export let newWordDelay: number = 750;
     export let deleteDelay: number = 33;
     export let deleteFirstDelay: number = 500;
 
-    const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time));
+    const wait = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
     let typedWord: string = "";
     let cycledWordList = [...wordList];
@@ -17,30 +17,29 @@
     (async () => {
         await wait(startDelay);
 
-        while(true) {
+        while (true) {
             const word = cycledWordList.shift() as InputData;
             cycledWordList.push(word); // cycle word list
 
             // type word
             isTyping = true;
-            for(const [char, time] of word) {
+            for (const [char, time] of word) {
                 typedWord += char;
-                
-                if(time)
-                    await wait(time);
+
+                if (time) await wait(time);
             }
             isTyping = false;
 
             await wait(wordDelay);
 
             isTyping = true;
-            
+
             // un-type word
-            while(typedWord.length > 0) {
+            while (typedWord.length > 0) {
                 const firstChar = typedWord.length == word.length;
 
-                typedWord = typedWord.slice(0,-1);
-                
+                typedWord = typedWord.slice(0, -1);
+
                 await wait(firstChar ? deleteFirstDelay : deleteDelay);
             }
             isTyping = false;

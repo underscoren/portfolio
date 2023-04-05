@@ -17,29 +17,28 @@ export class ScoreSystem extends System {
 
     addScore(score: number) {
         this.score += score;
-        this.fontSize = Math.min(this.fontSize * SCALE_MULT, SCALE_MAX)
+        this.fontSize = Math.min(this.fontSize * SCALE_MULT, SCALE_MAX);
         this.text.style.fontSize = this.fontSize;
     }
 
     update() {
-        if(Math.abs(this.score - this.displayedScore) > 0) {
-            this.displayedScore += ((this.score - this.displayedScore) / SPEED) * Time.deltaMSScaled;
-            
-            if(Math.abs(this.score - this.displayedScore) < 1)
-                this.displayedScore = this.score;
-            
+        if (Math.abs(this.score - this.displayedScore) > 0) {
+            this.displayedScore +=
+                ((this.score - this.displayedScore) / SPEED) * Time.deltaMSScaled;
+
+            if (Math.abs(this.score - this.displayedScore) < 1) this.displayedScore = this.score;
+
             this.text.text = `Score: ${this.displayedScore.toFixed(0)}`;
         }
 
-        if(this.fontSize > 20) {
-            this.fontSize = (this.fontSize * 1-(Time.deltaMSScaled / 50))
+        if (this.fontSize > 20) {
+            this.fontSize = this.fontSize * 1 - Time.deltaMSScaled / 50;
             this.text.style.fontSize = this.fontSize;
         }
-        
-        if(this.fontSize < 20) {
+
+        if (this.fontSize < 20) {
             this.fontSize = 20;
             this.text.style.fontSize = 20;
         }
-
     }
 }

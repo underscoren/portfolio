@@ -1,4 +1,4 @@
-import "@pixi/math-extras"
+import "@pixi/math-extras";
 import { Container, Graphics, Rectangle, Text, TextStyle } from "pixi.js";
 import { GameAssets } from "../Assets";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
@@ -7,7 +7,6 @@ import { easeOutExpo, lerp, Time, type IScene } from "../util";
 import { MainScene } from "./MainScene";
 
 export class LoadingScene extends Container implements IScene {
-
     loadingText = new Text("Loading");
     loadingBar = new Container();
     loadingBarBG = new Graphics();
@@ -21,15 +20,20 @@ export class LoadingScene extends Container implements IScene {
         const barWidth = SCREEN_WIDTH * 0.75;
         const barHeight = 45;
 
-        this.loadingBarFG.beginFill(0x5B8FB9);
+        this.loadingBarFG.beginFill(0x5b8fb9);
         this.loadingBarFG.drawRect(0, 0, barWidth, barHeight);
         this.loadingBarFG.endFill();
         this.loadingBarFG.scale.x = 0;
 
         const lineWidth = 5;
-        const lineOffset = Math.floor(lineWidth/2);
+        const lineOffset = Math.floor(lineWidth / 2);
         this.loadingBarBG.lineStyle(lineWidth, 0xffffff);
-        this.loadingBarBG.drawRect(-lineOffset, -lineOffset, barWidth+lineOffset, barHeight+lineOffset);
+        this.loadingBarBG.drawRect(
+            -lineOffset,
+            -lineOffset,
+            barWidth + lineOffset,
+            barHeight + lineOffset
+        );
 
         this.loadingBar.addChild(this.loadingBarFG);
         this.loadingBar.addChild(this.loadingBarBG);
@@ -52,10 +56,9 @@ export class LoadingScene extends Container implements IScene {
         this.addChild(this.loadingText);
         this.cursor = "wait";
 
-
         // IIFE to perform async task
         (async () => {
-            GameAssets.onProgress = progress => this.loadingBarFG.scale.x = progress
+            GameAssets.onProgress = (progress) => (this.loadingBarFG.scale.x = progress);
             // load assets
             await GameAssets.load();
 
@@ -73,7 +76,8 @@ export class LoadingScene extends Container implements IScene {
             console.log("finished load");
         });
 
-        this.once("destroyed", () => { // manually destroy graphics objects
+        this.once("destroyed", () => {
+            // manually destroy graphics objects
             console.log("Loading scene destroyed");
             this.loadingBarBG.destroy();
             this.loadingBarFG.destroy();
@@ -83,7 +87,7 @@ export class LoadingScene extends Container implements IScene {
     update() {
         this.timer += Time.deltaMS;
 
-        if(GameAssets.loaded) {
+        if (GameAssets.loaded) {
             this.loadingBar.alpha = lerp(
                 this.loadingBar.alpha,
                 0,
@@ -96,11 +100,10 @@ export class LoadingScene extends Container implements IScene {
                 Time.deltaMS / 1000
             );
         } else {
-            if(this.timer > 350) {
+            if (this.timer > 350) {
                 this.timer = 0;
                 this.loadingText.text += ".";
-                if(this.loadingText.text.length > 10)
-                    this.loadingText.text = "Loading";
+                if (this.loadingText.text.length > 10) this.loadingText.text = "Loading";
             }
         }
     }

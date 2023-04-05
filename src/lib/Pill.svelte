@@ -2,7 +2,7 @@
     export let color: "red" | "blue" | "green" = "blue";
 </script>
 
-<span class={`tag is-rounded ${color}`}><slot/></span>
+<span class={`tag is-rounded ${color}`}><slot /></span>
 
 <style lang="sass">
     @import "./css/colors"

@@ -5,25 +5,21 @@ import type { IScene } from "../util";
 import { MainScene } from "./MainScene";
 
 export class EndScene extends Container implements IScene {
-    
     scoreText = new Text();
-    
+
     constructor(score: number) {
         super();
 
         let result = "";
-        if(score == 0)
-        result = "Tie!";
-        if(score > 0)
-        result = "You win!";
-        if(score < 0)
-        result = "You lose!";
-        
+        if (score == 0) result = "Tie!";
+        if (score > 0) result = "You win!";
+        if (score < 0) result = "You lose!";
+
         this.scoreText.text = `${result}\nScore: ${score}\n\nClick anywhere to play again`;
         this.scoreText.style.fill = 0xffffff;
         this.scoreText.style.fontSize = 32;
         this.scoreText.style.align = "center";
-        
+
         this.scoreText.anchor.set(0.5);
         this.scoreText.x = SCREEN_WIDTH / 2;
         this.scoreText.y = SCREEN_HEIGHT / 2;
@@ -37,11 +33,13 @@ export class EndScene extends Container implements IScene {
         const switchScene = () => {
             const mainScene = new MainScene();
             PongGame.changeScene(mainScene);
-        }
+        };
 
         this.once("click", switchScene);
         this.once("tap", switchScene);
     }
-    
-    update() {/* noop */}
+
+    update() {
+        /* noop */
+    }
 }

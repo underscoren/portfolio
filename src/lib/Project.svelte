@@ -2,31 +2,30 @@
     export let type: "mini" | "" = "";
 </script>
 
-<div class="project block" class:mini={type=="mini"}>
-    <div class="img-container" class:mini={type=="mini"}>
+<div class="project block" class:mini={type == "mini"}>
+    <div class="img-container" class:mini={type == "mini"}>
         <slot name="image">
-            <div class="img-placeholder"></div>
+            <div class="img-placeholder" />
         </slot>
     </div>
     <div class="text-container">
         <div class="title-container">
             <span class="project-title">
-                <slot name="title"></slot>
+                <slot name="title" />
             </span>
             <span class="pills-container">
-                <slot name="pills"></slot>
+                <slot name="pills" />
             </span>
         </div>
         <div class="project-description content">
-            <slot name="description"></slot>
+            <slot name="description" />
         </div>
         {#if type != "mini"}
-        <div class="project-highlights content">
-            <slot name="highlights"></slot>
-        </div>
+            <div class="project-highlights content">
+                <slot name="highlights" />
+            </div>
         {/if}
     </div>
-    
 </div>
 
 <style lang="sass">

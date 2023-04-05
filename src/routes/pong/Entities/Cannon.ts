@@ -11,7 +11,7 @@ export class Cannon extends Entity {
     constructor() {
         super();
         this.texture = Texture.from("cannon");
-        this.anchor.set(0.5,0);
+        this.anchor.set(0.5, 0);
         this.y = SCREEN_HEIGHT;
     }
 
@@ -23,28 +23,23 @@ export class Cannon extends Entity {
     update() {
         this.lifetime += Time.deltaMSScaled;
 
-        if(this.lifetime > 0 && this.lifetime <= RISE_TIME) {
-            this.y = lerp(
-                SCREEN_HEIGHT, 
-                SCREEN_HEIGHT - this.height, 
-                this.lifetime / RISE_TIME
-            );
+        if (this.lifetime > 0 && this.lifetime <= RISE_TIME) {
+            this.y = lerp(SCREEN_HEIGHT, SCREEN_HEIGHT - this.height, this.lifetime / RISE_TIME);
         }
-        
+
         if (this.lifetime > RISE_TIME) {
-            if(!this.spawnedBall) {
+            if (!this.spawnedBall) {
                 this.onSpawnBall?.();
                 this.spawnedBall = true;
             }
 
             this.y = lerp(
-                SCREEN_HEIGHT - this.height, 
-                SCREEN_HEIGHT, 
+                SCREEN_HEIGHT - this.height,
+                SCREEN_HEIGHT,
                 easeOutExpo((this.lifetime - RISE_TIME) / FALL_TIME)
             );
         }
 
-        if(this.lifetime > TOTAL_LIFETIME)
-            EntitySystem.delete(this);
+        if (this.lifetime > TOTAL_LIFETIME) EntitySystem.delete(this);
     }
 }

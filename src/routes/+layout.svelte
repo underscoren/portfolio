@@ -1,8 +1,8 @@
 <script>
-    import "normalize.css"
-	import Footer from "../Footer.svelte";
-	import Navbar from "../Navbar.svelte";
-    import "../lib/css/main.sass"
+    import "normalize.css";
+    import Footer from "../Footer.svelte";
+    import Navbar from "../Navbar.svelte";
+    import "../lib/css/main.sass";
 </script>
 
 <div class="app">

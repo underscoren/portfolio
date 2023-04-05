@@ -1,28 +1,49 @@
 <script lang="ts">
     export const prerender = true;
-    import svelteLogoURL from "./lib/img/tools/svelte-logo.svg"
-    import bulmaLogoURL from "./lib/img/tools/Bulma Icon.svg"
-    import tsLogoURL from "./lib/img/tools/ts-logo-512.svg"
-    import sassLogoURL from "./lib/img/tools/Sass Logo - Seal (Color).svg"
-    import loveURL from "./lib/img/tools/heart.svg"
+    import svelteLogoURL from "./lib/img/tools/svelte-logo.svg";
+    import bulmaLogoURL from "./lib/img/tools/Bulma Icon.svg";
+    import tsLogoURL from "./lib/img/tools/ts-logo-512.svg";
+    import sassLogoURL from "./lib/img/tools/Sass Logo - Seal (Color).svg";
+    import loveURL from "./lib/img/tools/heart.svg";
 </script>
 
 <div class="footer" id="footer">
     <div class="content" style="margin-right: 1rem">
-        <p>Contact: <a class="external" href="mailto:marius.steffens@outlook.com">Marius.Steffens@outlook.com</a></p>
-        <p>Linkedin: <a class="external" href="https://www.linkedin.com/in/marius-s/">https://www.linkedin.com/in/marius-s/</a></p>
-        <p>Github: <a class="external" href="https://github.com/underscoren">https://github.com/underscoren</a></p>
+        <p>
+            Contact: <a class="external" href="mailto:marius.steffens@outlook.com"
+                >Marius.Steffens@outlook.com</a
+            >
+        </p>
+        <p>
+            Linkedin: <a class="external" href="https://www.linkedin.com/in/marius-s/"
+                >https://www.linkedin.com/in/marius-s/</a
+            >
+        </p>
+        <p>
+            Github: <a class="external" href="https://github.com/underscoren"
+                >https://github.com/underscoren</a
+            >
+        </p>
         <p>CV: <a class="external" href="/Steffens, Marius CV [Programmer].pdf">CV.pdf</a></p>
     </div>
-    <span class="block">Site designed, written, and hosted by me.</span> 
-    <span class="block">Made with 
-        <a href="https://svelte.dev/"><img src={svelteLogoURL} alt="Svelte"></a> 
-        <a href="https://bulma.io/"><img src={bulmaLogoURL} alt="Bulma"></a> 
-        <a href="https://sass-lang.com/"><img src={sassLogoURL} alt="Sass"></a> 
-        <a href="https://www.typescriptlang.org/"><img src={tsLogoURL} alt="TypeScript"></a> and 
-        <a href="https://www.youtube.com/watch?v=WpYeekQkAdc"><img id="heart" src={loveURL} alt=""></a>.
-    </span> 
-    <span class="block">Source available <a target="_blank" rel="noreferrer noopener" href="https://github.com/underscoren">here</a></span>
+    <span class="block">Site designed, written, and hosted by me.</span>
+    <span class="block"
+        >Made with
+        <a href="https://svelte.dev/"><img src={svelteLogoURL} alt="Svelte" /></a>
+        <a href="https://bulma.io/"><img src={bulmaLogoURL} alt="Bulma" /></a>
+        <a href="https://sass-lang.com/"><img src={sassLogoURL} alt="Sass" /></a>
+        <a href="https://www.typescriptlang.org/"><img src={tsLogoURL} alt="TypeScript" /></a> and
+        <a href="https://www.youtube.com/watch?v=WpYeekQkAdc"
+            ><img id="heart" src={loveURL} alt="" /></a
+        >.
+    </span>
+    <span class="block"
+        >Source available <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://github.com/underscoren">here</a
+        ></span
+    >
 </div>
 
 <style lang="sass">

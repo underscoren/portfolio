@@ -1,24 +1,24 @@
 <script lang="ts">
-    import schoolIcon from "./img/school icon.svg"
-    import workIcon from "./img/work icon.svg"
+    import schoolIcon from "./img/school icon.svg";
+    import workIcon from "./img/work icon.svg";
 
     export let type: "school" | "work";
 </script>
 
 <div class="experience">
-    <div class="point"></div>
-    <img src={type == "school" ? schoolIcon : workIcon} alt="">
+    <div class="point" />
+    <img src={type == "school" ? schoolIcon : workIcon} alt="" />
     <div class="content-container">
         <div class="title-container">
             <span class="title">
-                <slot name="title"></slot>
+                <slot name="title" />
             </span>
             <span class="date">
-                <slot name="date"></slot>
+                <slot name="date" />
             </span>
         </div>
         <div class="highlights content">
-            <slot name="highlights"></slot>
+            <slot name="highlights" />
         </div>
     </div>
 </div>
